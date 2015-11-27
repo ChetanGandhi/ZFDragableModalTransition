@@ -32,10 +32,14 @@
 - (IBAction)buttonPressed:(UIButton *)sender
 {
     ModalViewController *modalVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ModalViewController"];
-    modalVC.modalPresentationStyle = UIModalPresentationCustom;
+    modalVC.modalPresentationStyle = UIModalPresentationFullScreen;
     
     self.animator = [[ZFModalTransitionAnimator alloc] initWithModalViewController:modalVC];
     self.animator.dragable = self.dragable;
+    self.animator.bounces = NO;
+    self.animator.behindViewAlpha = 0.5f;
+    self.animator.behindViewScale = 0.5f;
+    self.animator.transitionDuration = 0.7f;
     
     NSString *title = [sender titleForState:UIControlStateNormal];
     if ([title isEqualToString:@"Left"]) {
@@ -57,6 +61,11 @@
     } else {
         self.dragable = NO;
     }
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskAll;
 }
 
 @end
